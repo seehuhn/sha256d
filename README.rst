@@ -31,13 +31,15 @@ resulting hash.
 Installation
 ------------
 
+::
+
     go get github.com/seehuhn/sha256d
 
 Usage
 -----
 
 The sha256d package implements the standard hash.Hash interface.
-Example:
+Example::
 
     hash := sha256d.New()
     n, _ := hash.Write([]byte("hello"))
