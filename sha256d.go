@@ -35,21 +35,21 @@ const (
 )
 
 type sha256d struct {
-	h1, h2 hash.Hash
+	round1, round2 hash.Hash
 }
 
 func (hash *sha256d) Write(p []byte) (n int, err error) {
-	return hash.h1.Write(p)
+	return hash.round1.Write(p)
 }
 
 func (hash *sha256d) Sum(b []byte) []byte {
-	hash.h2.Reset()
-	hash.h2.Write(hash.h1.Sum(nil))
-	return hash.h2.Sum(b)
+	hash.round2.Reset()
+	hash.round2.Write(hash.round1.Sum(nil))
+	return hash.round2.Sum(b)
 }
 
 func (hash *sha256d) Reset() {
-	hash.h1.Reset()
+	hash.round1.Reset()
 }
 
 func (hash *sha256d) Size() int {
@@ -63,7 +63,7 @@ func (hash *sha256d) BlockSize() int {
 // New returns a new hash.Hash computing the SHA-256d checksum.
 func New() hash.Hash {
 	return &sha256d{
-		h1: sha256.New(),
-		h2: sha256.New(),
+		round1: sha256.New(),
+		round2: sha256.New(),
 	}
 }

@@ -25,17 +25,17 @@ import (
 
 func TestSizes(t *testing.T) {
 	hash := New()
-	h1 := hash.(*sha256d).h1
+	round1 := hash.(*sha256d).round1
 	orig := sha256.New()
 
 	if hash.Size() != Size ||
 		orig.Size() != Size ||
-		h1.Size() != Size {
+		round1.Size() != Size {
 		t.Error("wrong hash size")
 	}
 	if hash.BlockSize() != BlockSize ||
 		orig.BlockSize() != BlockSize ||
-		h1.BlockSize() != BlockSize {
+		round1.BlockSize() != BlockSize {
 		t.Error("wrong block size")
 	}
 
