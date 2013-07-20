@@ -27,10 +27,10 @@ import (
 )
 
 const (
-	// Size is the blocksize of SHA-256d in bytes.
+	// Size is the size of a SHA-256d checksum in bytes.
 	Size = 32
 
-	// BlockSize is the size of a SHA-256d checksum in bytes.
+	// BlockSize is the internal blocksize of SHA-256d in bytes.
 	BlockSize = 64
 )
 

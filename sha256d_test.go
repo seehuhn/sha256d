@@ -23,10 +23,11 @@ import (
 	"testing"
 )
 
-func TestSha256d(t *testing.T) {
+func TestSizes(t *testing.T) {
 	hash := New()
 	h1 := hash.(*sha256d).h1
 	orig := sha256.New()
+
 	if hash.Size() != Size ||
 		orig.Size() != Size ||
 		h1.Size() != Size {
@@ -37,6 +38,15 @@ func TestSha256d(t *testing.T) {
 		h1.BlockSize() != BlockSize {
 		t.Error("wrong block size")
 	}
+
+	res := hash.Sum(nil)
+	if len(res) != Size {
+		t.Error("computed hash has wrong length")
+	}
+}
+
+func TestSha256d(t *testing.T) {
+	hash := New()
 
 	for _, l := range []int{0, 1, hash.Size(), hash.BlockSize(), 1024 * 1024} {
 		buf := make([]byte, l)
