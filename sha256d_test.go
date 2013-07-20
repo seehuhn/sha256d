@@ -78,12 +78,44 @@ func TestSha256d(t *testing.T) {
 	}
 }
 
-func BenchmarkHash(b *testing.B) {
+func BenchmarkReuse(b *testing.B) {
 	hash := New()
 	data := []byte("This is a test string, containing data to hash.")
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
+		hash.Write(data)
+		hash.Write(data)
+		hash.Sum(nil)
+	}
+}
+
+func BenchmarkUseOnce(b *testing.B) {
+	data := []byte("This is a test string, containing data to hash.")
+	for i := 0; i < b.N; i++ {
+		hash := New()
+		hash.Write(data)
+		hash.Write(data)
+		hash.Sum(nil)
+	}
+}
+
+func BenchmarkReuseBase(b *testing.B) {
+	hash := sha256.New()
+	data := []byte("This is a test string, containing data to hash.")
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		hash.Write(data)
+		hash.Write(data)
+		hash.Sum(nil)
+	}
+}
+
+func BenchmarkUseBaseOnce(b *testing.B) {
+	data := []byte("This is a test string, containing data to hash.")
+	for i := 0; i < b.N; i++ {
+		hash := sha256.New()
 		hash.Write(data)
 		hash.Write(data)
 		hash.Sum(nil)
