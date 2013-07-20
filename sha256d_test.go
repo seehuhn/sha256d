@@ -25,13 +25,17 @@ import (
 
 func TestSha256d(t *testing.T) {
 	hash := New()
-
+	h1 := hash.(*sha256d).h1
 	orig := sha256.New()
-	if hash.Size() != orig.Size() {
+	if hash.Size() != Size ||
+		orig.Size() != Size ||
+		h1.Size() != Size {
 		t.Error("wrong hash size")
 	}
-	if hash.BlockSize() != orig.BlockSize() {
-		t.Error("wrong hash size")
+	if hash.BlockSize() != BlockSize ||
+		orig.BlockSize() != BlockSize ||
+		h1.BlockSize() != BlockSize {
+		t.Error("wrong block size")
 	}
 
 	for _, l := range []int{0, 1, hash.Size(), hash.BlockSize(), 1024 * 1024} {

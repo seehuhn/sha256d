@@ -26,6 +26,14 @@ import (
 	"hash"
 )
 
+const (
+	// Size is the blocksize of SHA-256d in bytes.
+	Size = 32
+
+	// BlockSize is the size of a SHA-256d checksum in bytes.
+	BlockSize = 64
+)
+
 type sha256d struct {
 	h1, h2 hash.Hash
 }
@@ -45,11 +53,11 @@ func (hash *sha256d) Reset() {
 }
 
 func (hash *sha256d) Size() int {
-	return hash.h1.Size()
+	return Size
 }
 
 func (hash *sha256d) BlockSize() int {
-	return hash.h1.BlockSize()
+	return BlockSize
 }
 
 // New returns a new hash.Hash computing the SHA-256d checksum.
