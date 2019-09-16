@@ -73,7 +73,7 @@ func TestSha256d(t *testing.T) {
 	if err != nil {
 		t.Fatal("test is corrupted")
 	}
-	if bytes.Compare(out, correct) != 0 {
+	if !bytes.Equal(out, correct) {
 		t.Error("wrong hash value")
 	}
 }
