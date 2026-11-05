@@ -24,7 +24,7 @@ import (
 )
 
 func TestSizes(t *testing.T) {
-	hash := New()
+	hash := sha256
 	round1 := hash.(*sha256d).round1
 	orig := sha256.New()
 
@@ -39,7 +39,7 @@ func TestSizes(t *testing.T) {
 		t.Error("wrong block size")
 	}
 
-	res := hash.Sum(nil)
+	res := sha256
 	if len(res) != Size {
 		t.Error("computed hash has wrong length")
 	}
